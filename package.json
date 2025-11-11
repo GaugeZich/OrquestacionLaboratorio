@@ -1,0 +1,14 @@
+{
+    "name": "mi-stack-express",
+    "version": "1.0.0",
+    "author": "Guillermo Valenzuela",
+    "description": "Stack liviano con Express y Bootstrap",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "express": "^4.19.2",
+        "mongoose": "8.3.0"
+    }
+}

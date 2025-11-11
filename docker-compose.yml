@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000" # Exponemos el puerto para acceso externo
+    container_name: express_app
+    env_file:
+      - .env # Cargamos las variables de entorno para la conexión
+    depends_on:
+      - mongodb # Asegura que la DB inicie antes que el backend
+    # Opcional: restart: always
+
+  mongodb:
+    image: mongo:latest # Imagen oficial de MongoDB
+    ports:
+      - "27017:27017" # Puerto por defecto de MongoDB (Opcional, puede no exponerse si solo el backend accede)
+    container_name: mongodb_service
+    environment:
+      # Variables para la configuración inicial de la DB (se leen desde .env)
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${DB_NAME}
+    volumes:
+      - mongo-data:/data/db # Volumen persistente para los datos de la DB
+    # Opcional: restart: always
+
+volumes:
+  mongo-data:
+    driver: local # Define el volumen de datos para MongoDB
